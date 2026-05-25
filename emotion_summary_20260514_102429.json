@@ -1,0 +1,51 @@
+{
+  "analysis_duration_seconds": 23.55,
+  "total_frames_analyzed": 2,
+  "start_time": "2026-05-14T10:24:29.067762",
+  "end_time": "2026-05-14T10:24:29.084018",
+  "overall_dominant_emotion": "fear",
+  "dominant_emotion_percentages": {
+    "fear": 50.0,
+    "angry": 50.0
+  },
+  "average_emotion_scores": {
+    "angry": 34.09,
+    "fear": 27.45,
+    "happy": 21.17,
+    "sad": 17.2,
+    "neutral": 0.07,
+    "disgust": 0.01,
+    "surprise": 0.0
+  },
+  "stress_level": 4,
+  "detailed_timeline": [
+    {
+      "timestamp": "2026-05-14T10:24:29.067762",
+      "elapsed_seconds": 1.15,
+      "dominant_emotion": "fear",
+      "emotion_scores": {
+        "angry": 10.984636306762695,
+        "disgust": 0.02304532192647457,
+        "fear": 54.83253860473633,
+        "happy": 0.12417521327733994,
+        "sad": 33.99445343017578,
+        "surprise": 6.770862819394097e-05,
+        "neutral": 0.041090961545705795
+      }
+    },
+    {
+      "timestamp": "2026-05-14T10:24:29.084018",
+      "elapsed_seconds": 1.15,
+      "dominant_emotion": "angry",
+      "emotion_scores": {
+        "angry": 57.1936149597168,
+        "disgust": 0.000245448958594352,
+        "fear": 0.07412604242563248,
+        "happy": 42.21834945678711,
+        "sad": 0.4152737855911255,
+        "surprise": 0.0007331169908866286,
+        "neutral": 0.09766045957803726
+      }
+    }
+  ]
+}
