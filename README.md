@@ -1,6 +1,6 @@
 # 🎓 AI-Powered Personalized Learning Portal
 
-**Status:** ✅ DEPLOYMENT READY | **AI:** ✅ Google Gemini 1.5 Flash | **UI:** ✅ Industry-Ready
+
 
 A production-ready full-stack adaptive learning platform with **real AI-powered question generation** and real-time performance analytics.
 
@@ -28,7 +28,7 @@ npm run dev
 **Test AI Generation:**
 1. Login as Teacher
 2. Create class → Get code (e.g., ABC123)
-3. Create Test from Text → Enter topic: "Photosynthesis in plants"
+3. Create Test from Text → Enter topic: ER-Model in DBMS
 4. Set 10 questions, Mixed difficulty
 5. Click Generate → Watch progress → See 10 real AI questions! ✨
 
@@ -38,21 +38,12 @@ npm run dev
 
 ### ✅ Real AI Integration Fixed
 - **Before:** Questions were random/dummy data
-- **After:** Real Google Gemini 1.5 Flash API integration
+- **After:** Real grok  API integration
 - Questions are now **actually generated based on your topics!**
 
-### ✅ Teacher Progress Tracking Added
-- **Animated loading spinner** during generation
-- **Progress card** showing "Generating questions with AI..."
-- **Success alert** with question count
-- **Full questions preview** with expandable card
 
-### ✅ Professional UI Enhancements
-- Difficulty badges (Easy/Medium/Hard)
-- Scrollable questions preview
-- Multiple-choice options displayed
-- Correct answers shown
-- Disabled buttons during generation
+
+
 
 ### ✅ Robust Error Handling
 - Detailed error messages
@@ -72,7 +63,6 @@ npm run dev
   - ✨ **Generate from uploaded files**
   - ✨ **Customizable:** 5-50 questions
   - ✨ **Difficulty:** Easy/Medium/Hard/Mixed
-  - ✨ **Live progress tracking** (NEW!)
   - ✨ **Questions preview** (NEW!)
 - � Monitor student performance
 - 🔍 View detailed test insights
