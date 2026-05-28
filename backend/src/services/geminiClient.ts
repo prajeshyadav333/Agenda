@@ -7,7 +7,17 @@ export default {
     console.log('🤖 Generating questions with Groq AI...');
     try {
       const completion = await groq.chat.completions.create({
-        messages: [{ role: 'user', content: prompt }],
+       messages: [
+  {
+    role: 'system',
+    content:
+      'Return ONLY valid JSON array. No markdown, no explanations, no extra text.'
+  },
+  {
+    role: 'user',
+    content: prompt
+  }
+],
         model: 'llama-3.3-70b-versatile',
         temperature: 0.7,
         max_tokens: 2048,

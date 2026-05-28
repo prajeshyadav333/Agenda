@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 export default function Student() {
   const [tests, setTests] = useState<any[]>([]);
+const [attempts, setAttempts] = useState<any[]>([]);
   const [classes, setClasses] = useState<any[]>([]);
   const [showJoinClass, setShowJoinClass] = useState(false);
   const [classCode, setClassCode] = useState('');
@@ -28,12 +29,33 @@ export default function Student() {
     loadClasses();
   }, []);
 
-  useEffect(() => {
-    if (selectedClass) {
-      loadTests();
-    }
-  }, [selectedClass]);
+useEffect(() => {
 
+  if (selectedClass) {
+
+    loadTests();
+
+    const studentId =
+      localStorage.getItem('userId');
+
+    if (!studentId) return;
+
+    fetch(
+      `http://localhost:4000/api/tests/history/${studentId}`
+    )
+      .then(res => res.json())
+      .then(data => {
+
+       console.log(data);
+
+setAttempts([...data]);
+
+      })
+      .catch(err => console.error(err));
+
+  }
+
+}, [selectedClass]);
   useEffect(() => {
     if (activeTest && timer > 0) {
       const interval = setInterval(() => setTimer(t => t - 1), 1000);
@@ -92,7 +114,9 @@ export default function Student() {
     
     setIsSubmitting(true);
     const timeTaken = 30 - timer;
-    const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+    const optionIndex = currentQuestion.options?.indexOf(selectedAnswer) ?? -1;
+const optionLetter = ['A','B','C','D'][optionIndex] || '';
+const isCorrect = selectedAnswer === currentQuestion.correctAnswer || optionLetter === currentQuestion.correctAnswer;
     const stress = Math.random() * 0.3 + (isCorrect ? 0 : 0.4); // Simulate stress
     
     setAnswers([...answers, { isCorrect, stress, time: timeTaken }]);
@@ -152,7 +176,7 @@ export default function Student() {
 
     return (
       <div className="min-h-screen bg-gray-50">
-        <nav className="bg-gray-900 shadow-sm border-b border-gray-200">
+        <nav className="bg-white shadow-sm border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <h1 className="text-xl font-bold text-gray-900">Test Results</h1>
@@ -208,7 +232,7 @@ export default function Student() {
 
           <div className="flex gap-4">
             <button onClick={retakeTest} className="btn-primary flex-1">Retake Similar Test</button>
-            <button onClick={() => navigate('/student')} className="btn-secondary flex-1">Back to Dashboard</button>
+            <button onClick={() =>window.location.href='/student'} className="btn-secondary flex-1">Back to Dashboard</button>
           </div>
         </div>
       </div>
@@ -219,7 +243,7 @@ export default function Student() {
     const progress = ((questionIndex + 1) / 10) * 100;
     return (
       <div className="min-h-screen bg-gray-50">
-        <nav className="bg-gray-900 shadow-sm border-b border-gray-200">
+        <nav className="bg-white shadow-sm border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div>
@@ -284,7 +308,7 @@ export default function Student() {
                   className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                     selectedAnswer === option
                       ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 bg-gray-900 hover:border-blue-300'
+                      : 'border-gray-200 bg-white hover:border-blue-300'
                   } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 >
                   <span className="font-medium text-gray-900">{option}</span>
@@ -313,7 +337,7 @@ export default function Student() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-gray-900 shadow-sm border-b border-gray-200">
+      <nav className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
@@ -396,7 +420,7 @@ export default function Student() {
         {/* Tests List */}
         {selectedClass && (
           <div className="card">
-            <h2 className="text-2xl font-bold mb-6" style={{color:"#00d4ff"}}>Available Tests - {selectedClass.name}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Available Tests - {selectedClass.name}</h2>
             {tests.length === 0 ? (
               <div className="text-center py-12">
                 <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -426,6 +450,48 @@ export default function Student() {
             )}
           </div>
         )}
+<div className="card mt-6">
+
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Previous Attempts
+          </h2>
+<p className="text-black">
+  Total Attempts: {attempts.length}
+</p>
+
+          {attempts.map((attempt: any) => (
+
+            <div
+              key={attempt._id}
+              className="border p-4 rounded-lg mb-4 bg-gray-50"
+            >
+
+              <p className="mb-2">
+                <strong>Test ID:</strong>{" "}
+                {attempt.testId}
+              </p>
+
+              <p className="mb-2">
+                <strong>Completed:</strong>{" "}
+                {attempt.completed ? 'Yes' : 'No'}
+              </p>
+
+              <p className="mb-2">
+                <strong>Questions Attempted:</strong>{" "}
+                {attempt.results.length}
+              </p>
+
+              <p>
+                <strong>Difficulty:</strong>{" "}
+                {attempt.currentDifficulty}
+              </p>
+
+            </div>
+
+          ))}
+
+        </div>
+
       </div>
     </div>
   );

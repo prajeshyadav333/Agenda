@@ -100,7 +100,9 @@ useEffect(() => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Avg Accuracy</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{((data?.avgAccuracy || 0.72) * 100).toFixed(0)}%</p>
+<p className="text-4xl font-bold text-gray-900 mt-1">
+  {(data?.avgAccuracy || 0).toFixed(0)}%
+</p>
                 <p className="text-sm text-green-600 mt-2">↑ 3% improvement</p>
               </div>
               <div className="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center">

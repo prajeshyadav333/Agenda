@@ -27,11 +27,14 @@ const completedTests =
     completed: true
   });
   
-    res.json({
-      users,
-      activeTests,
-     avgAccuracy: completedTests
-    });
+res.json({
+  users,
+  activeTests,
+  avgAccuracy:
+    activeTests > 0
+      ? Math.round((completedTests / activeTests) * 100)
+      : 0
+});
 
   } catch (error: any) {
 

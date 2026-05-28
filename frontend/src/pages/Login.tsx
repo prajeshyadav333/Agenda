@@ -16,8 +16,29 @@ export default function Login() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    
-    try {
+if (isRegister) {
+
+  const strongPassword =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+  if (!strongPassword.test(formData.password)) {
+
+    alert(
+      "Password must contain:\n" +
+      "- One uppercase letter\n" +
+      "- One lowercase letter\n" +
+      "- One number\n" +
+      "- One special character\n" +
+      "- Minimum 6 characters"
+    );
+
+    setLoading(false);
+
+    return;
+  }
+
+}
+  try {
       const endpoint = isRegister ? '/auth/register' : '/auth/login';
       const payload = isRegister 
         ? formData 
@@ -28,7 +49,10 @@ export default function Login() {
       localStorage.setItem('token', resp.data.token);
       localStorage.setItem('role', resp.data.user.role);
       localStorage.setItem('username', resp.data.user.username);
-      localStorage.setItem('userId', resp.data.user.id);
+   localStorage.setItem(
+  'userId',
+  resp.data.user.id ||resp.data.user.userId
+);
       
       // Navigate based on role
       if (resp.data.user.role === 'teacher') navigate('/teacher');
@@ -104,6 +128,10 @@ export default function Login() {
               required
               minLength={6}
             />
+            <p className="text-xs text-gray-400 mt-1">
+  Password must contain uppercase,
+  lowercase, number and special character.
+</p>
           </div>
 
           {/* Role selection */}

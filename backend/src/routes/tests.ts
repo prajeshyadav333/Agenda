@@ -4,6 +4,7 @@ import geminiClient from '../services/geminiClient';
 import advancedGenerator from '../services/advancedQuestionGenerator';
 import { Test, Attempt, Class } from '../db/models';
 import { authenticateToken, requireTeacher, AuthRequest } from '../middleware/auth';
+import mongoose from 'mongoose';
 
 const router = Router();
 
@@ -132,6 +133,7 @@ router.post('/start', authenticateToken, async (req: AuthRequest, res) => {
       attemptId,
       testId,
       studentId,
+classId: test.classId,
       index: 0,
       results: [],
       currentDifficulty: 'easy', // Start with easy
@@ -381,6 +383,74 @@ router.get('/insights/:attemptId', authenticateToken, async (req: AuthRequest, r
     console.error('❌ Error fetching insights:', error);
     res.status(500).json({ error: 'Failed to fetch insights' });
   }
+});
+router.get('/history/:studentId', async (req, res) => {
+
+  try {
+
+    const attemptsCollection =
+      mongoose.connection.collection('attempts');
+
+    const attempts =
+      await attemptsCollection.find({
+        studentId: req.params.studentId
+      }).toArray();
+
+    res.json(attempts);
+
+  } catch (error: any) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
+});
+router.post('/generate', authenticateToken, requireTeacher, async (req: AuthRequest, res) => {
+
+  try {
+
+    const {
+      materialId,
+      numQuestions,
+      difficulty,
+      classId,
+      testName
+    } = req.body;
+
+   const test = new Test({
+  testId: `test_${Date.now()}`,
+  materialId,
+  numQuestions,
+  difficulty,
+  classId,
+  testName,
+
+  topic: testName || "Generated Test",
+
+  createdBy: req.user?.userId,
+
+  teacherId: req.user?.userId,
+
+  createdAt: new Date()
+});
+
+await test.save();
+    res.json({
+      success: true,
+  message: 'Test created successfully',
+      test
+    });
+
+  } catch (error: any) {
+
+    res.status(500).json({
+      error: error.message
+    });
+
+  }
+
 });
 
 export default router;
