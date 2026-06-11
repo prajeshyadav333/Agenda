@@ -193,9 +193,6 @@ button[class*="text-gray"]:hover {
   border-color: var(--blue) !important;
 }
 
-.recharts-wrapper, [class*="recharts"] {
-  filter: drop-shadow(0 0 8px rgba(0,212,255,0.15));
-}
 
 table { border-collapse: separate; border-spacing: 0; }
 th {
