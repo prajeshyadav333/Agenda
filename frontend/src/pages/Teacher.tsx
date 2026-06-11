@@ -69,10 +69,18 @@ export default function Teacher() {
     if (!file) return;
     
     setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    try {
+const formData = new FormData();
+
+formData.append('file', file);
+if (selectedClass) {
+
+  formData.append(
+    'classId',
+    selectedClass.id
+  );
+
+}
+  try {
       await api.post('/materials/upload', formData);
       await loadMaterials();
       alert('File uploaded successfully!');

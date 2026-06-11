@@ -23,15 +23,19 @@ router.post('/upload', authenticateToken, requireTeacher, upload.single('file'),
     
     const teacherId = req.user!.userId;
     const materialId = `mat_${Date.now()}`;
-    
-    // Save to database
-    const material = new Material({
-      id: materialId,
-      fileName: req.file.originalname,
-      filePath: req.file.filename,
-      uploadedBy: teacherId,
-    });
-    
+const material = new Material({
+  id: materialId,
+
+  fileName: req.file.originalname,
+
+  filePath: req.file.filename,
+
+  uploadedBy: teacherId,
+
+  classId: req.body.classId || null,
+
+  uploadedAt: new Date()
+});
     await material.save();
     
     console.log(`📁 Material uploaded by ${req.user!.username}: ${req.file.originalname}`);
@@ -74,4 +78,29 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
   }
 });
 
+router.get(
+  '/class/:classId',
+  authenticateToken,
+  async (req, res) => {
+
+    try {
+
+      const materials =
+        await Material.find({
+          classId: req.params.classId
+        });
+
+      res.json({
+        materials
+      });
+
+    } catch (error: any) {
+
+      res.status(500).json({
+        error: error.message
+      });
+
+    }
+
+});
 export default router;

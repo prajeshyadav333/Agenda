@@ -18,6 +18,7 @@ import adminRoutes from './routes/admin';
 import classRoutes from './routes/classes';
 
 const app = express();
+app.use('/uploads', express.static('uploads'));
 app.use(cors());
 app.use(express.json());
 

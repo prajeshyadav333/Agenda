@@ -63,7 +63,7 @@ export default function Admin() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Users</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{data?.users || 120}</p>
+                <p className="stat-number stat-cyan">{data?.users || 120}</p>
                 <p className="text-sm text-green-600 mt-2">↑ 12% from last month</p>
               </div>
               <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -78,7 +78,7 @@ export default function Admin() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Active Tests</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{data?.activeTests || 4}</p>
+                <p className="stat-number stat-green">{data?.activeTests || 4}</p>
                 <p className="text-sm text-blue-600 mt-2">Live right now</p>
               </div>
               <div className="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center">
@@ -93,7 +93,7 @@ export default function Admin() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Avg Accuracy</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{((data?.avgAccuracy || 0.72) * 100).toFixed(0)}%</p>
+                <p className="stat-number stat-violet">{((data?.avgAccuracy || 0.72) * 100).toFixed(0)}%</p>
                 <p className="text-sm text-green-600 mt-2">↑ 3% improvement</p>
               </div>
               <div className="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center">

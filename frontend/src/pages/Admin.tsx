@@ -40,7 +40,7 @@ useEffect(() => {
   }
 
 
-  const COLORS = ['#3b82f6', '#10b981', '#f59e0b'];
+  const COLORS = ['#7c3aed', '#06b6d4', '#f59e0b'];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -70,7 +70,7 @@ useEffect(() => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Users</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{data?.users || 120}</p>
+                <p className="stat-number stat-cyan">{data?.users || 120}</p>
                 <p className="text-sm text-green-600 mt-2">↑ 12% from last month</p>
               </div>
               <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -85,7 +85,7 @@ useEffect(() => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Active Tests</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{data?.activeTests || 4}</p>
+                <p className="stat-number stat-green">{data?.activeTests || 4}</p>
                 <p className="text-sm text-blue-600 mt-2">Live right now</p>
               </div>
               <div className="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center">
@@ -99,8 +99,8 @@ useEffect(() => {
           <div className="card">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Avg Accuracy</p>
-<p className="text-4xl font-bold text-gray-900 mt-1">
+                <p className="text-sm text-gray-600">Completion Rate</p>
+<p className="stat-number stat-violet">
   {(data?.avgAccuracy || 0).toFixed(0)}%
 </p>
                 <p className="text-sm text-green-600 mt-2">↑ 3% improvement</p>
@@ -120,12 +120,36 @@ useEffect(() => {
             <h3 className="text-lg font-bold text-gray-900 mb-4">Performance Trends</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="week" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="taken" fill="#3b82f6" name="Tests Taken" />
-                <Bar dataKey="completed" fill="#10b981" name="Completed Tests" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,58,237,0.15)" />
+                <XAxis
+                  dataKey="week"
+                  tick={{ fill: '#94a3b8', fontSize: 12 }}
+                  axisLine={{ stroke: 'rgba(124,58,237,0.3)' }}
+                  label={{
+                    value: 'Test Status',
+                    position: 'insideBottom',
+                    offset: -5,
+                    fill: '#94a3b8'
+                  }}
+                />
+
+                <YAxis
+                  tick={{ fill: '#94a3b8', fontSize: 12 }}
+                  axisLine={{ stroke: 'rgba(124,58,237,0.3)' }}
+                  label={{
+                    value: 'No. of Tests',
+                    angle: -90,
+                    position: 'insideLeft',
+                    fill: '#94a3b8'
+                  }}
+                />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0d1628', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '12px', color: '#e2e8f0' }}
+                  itemStyle={{ color: '#e2e8f0' }}
+                  cursor={{ fill: 'rgba(124,58,237,0.08)' }}
+                />
+                <Bar dataKey="taken" fill="#7c3aed" name="Tests Taken" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="completed" fill="#06b6d4" name="Completed Tests" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
 
@@ -143,15 +167,23 @@ useEffect(() => {
                   labelLine={false}
                   label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   outerRadius={100}
+                  innerRadius={40}
                   fill="#8884d8"
                   dataKey="value"
+                  stroke="rgba(124,58,237,0.2)"
+                  strokeWidth={2}
                 >
                   {userDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
-<Legend />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0d1628', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '12px', color: '#e2e8f0' }}
+                  itemStyle={{ color: '#e2e8f0' }}
+                />
+<Legend
+  wrapperStyle={{ color: '#94a3b8', fontSize: '13px' }}
+/>
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -161,32 +193,40 @@ useEffect(() => {
         <div className="card">
           <h3 className="text-lg font-bold text-gray-900 mb-4">System Status</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <div>
-                <p className="text-sm text-gray-600">API Server</p>
-                <p className="font-semibold text-gray-900">Online</p>
+            <div className="status-item" style={{ borderLeft: '3px solid #10b981', padding: '12px 16px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)' }}>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <div>
+                  <p className="text-sm text-gray-600">API Server</p>
+                  <p className="font-semibold text-gray-900">Online</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <div>
-                <p className="text-sm text-gray-600">AI Engine</p>
-                <p className="font-semibold text-gray-900">Active</p>
+            <div className="status-item" style={{ borderLeft: '3px solid #10b981', padding: '12px 16px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)' }}>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <div>
+                  <p className="text-sm text-gray-600">AI Engine</p>
+                  <p className="font-semibold text-gray-900">Active</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <div>
-                <p className="text-sm text-gray-600">Database</p>
-                <p className="font-semibold text-gray-900">Connected</p>
+            <div className="status-item" style={{ borderLeft: '3px solid #10b981', padding: '12px 16px', borderRadius: '10px', background: 'rgba(16,185,129,0.06)' }}>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <div>
+                  <p className="text-sm text-gray-600">Database</p>
+                  <p className="font-semibold text-gray-900">Connected</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
-              <div>
-                <p className="text-sm text-gray-600">Storage</p>
-                <p className="font-semibold text-gray-900">78% Used</p>
+            <div className="status-item" style={{ borderLeft: '3px solid #f59e0b', padding: '12px 16px', borderRadius: '10px', background: 'rgba(245,158,11,0.06)' }}>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
+                <div>
+                  <p className="text-sm text-gray-600">Storage</p>
+                  <p className="font-semibold text-gray-900">78% Used</p>
+                </div>
               </div>
             </div>
           </div>
