@@ -102,39 +102,51 @@ Authentication & Security
 - JWT (JSON Web Tokens)
 - bcrypt.js for password hashing
 
-🧩 System Architecture
+## 🛠️ System Architecture
 
 The system follows a client-server architecture:
 
+```text
 User
- │
- ▼
+  │
+  ▼
 React + TypeScript Frontend
- │
- ▼
+  │
+  ▼
 Express.js REST API
- │
- ├──────────────► MongoDB
- │
- └──────────────► Groq API
-                       │
-                       ▼
-                    LLM
-                       │
-                       ▼
-               Generated Questions
+  │
+  ├──────────────► MongoDB
+  │
+  └──────────────► Groq API
+                         │
+                         ▼
+                       LLM
+                         │
+                         ▼
+                Generated Questions
+```
+## 🛠️ Installation and Setup
 
-🛠️ Installation and Setup
+### 1. Clone the Repository
 
-1. Clone the Repository
+```bash
+git clone <your-github-repository-url>
+cd Agentic-adaptive-learning-system
+```
 
-git clone <YOUR-GITHUB-REPOSITORY-URL>
-cd <PROJECT-FOLDER>
+### 2. Install Frontend Dependencies
 
-2. Install Frontend Dependencies
-
+```bash
 cd frontend
 npm install
+```
+
+### 3. Install Backend Dependencies
+
+```bash
+cd ../backend
+npm install
+```
 
 3. Install Backend Dependencies
 
@@ -214,8 +226,9 @@ The application includes:
 - Environment variables for sensitive configuration.
 - API-based communication between frontend and backend.
 
-📁 Main Project Structure
+## 📁 Main Project Structure
 
+```text
 Agentic-Adaptive-Learning-System/
 │
 ├── frontend/
@@ -226,14 +239,13 @@ Agentic-Adaptive-Learning-System/
 │
 ├── backend/
 │   ├── src/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   └── ...
+│   ├── routes/
+│   ├── services/
 │   └── ...
 │
 ├── README.md
 └── .gitignore
-
+```
 🚀 Future Enhancements
 
 - More advanced learner-performance prediction.
