@@ -1,325 +1,271 @@
-# 🎓 AI-Powered Personalized Learning Portal
+Agentic Adaptive Learning System
 
+An AI-powered web-based learning platform that provides personalized and adaptive learning by analyzing student performance and dynamically generating assessments.
 
+📌 Project Overview
 
-A production-ready full-stack adaptive learning platform with **real AI-powered question generation** and real-time performance analytics.
+The Agentic Adaptive Learning System is designed to overcome the limitations of traditional one-size-fits-all learning platforms.
 
----
+The system allows teachers to upload learning materials and create courses, while students can study the materials and take AI-generated quizzes. Based on the student's performance, the system adapts the difficulty of subsequent questions and provides performance analytics.
 
-## 🎯 QUICK START (2 Commands)
+The project uses Large Language Models (LLMs) through the Groq API to generate educational questions from learning content.
 
-### 1. Start Backend:
-```bash
-cd C:\vibathon\backend
-npm run dev
-# ✅ Server listening on 4000
-```
+🎯 Objectives
 
-### 2. Start Frontend:
-```bash
-cd C:\vibathon\frontend
-npm run dev
-# ✅ Local: http://localhost:5173/
-```
+- Provide personalized learning experiences for students.
+- Automatically generate quiz questions from uploaded materials.
+- Adapt question difficulty based on student performance.
+- Reduce the manual effort required for creating assessments.
+- Track student performance and quiz results.
+- Provide separate interfaces for Students, Teachers, and Administrators.
+- Store and manage application data using MongoDB.
 
-### 3. Open & Test:
-🌐 **http://localhost:5173**
+✨ Key Features
 
-**Test AI Generation:**
-1. Login as Teacher
-2. Create class → Get code (e.g., ABC123)
-3. Create Test from Text → Enter topic: ER-Model in DBMS
-4. Set 10 questions, Mixed difficulty
-5. Click Generate → Watch progress → See 10 real AI questions! ✨
+👨‍🎓 Student Module
 
----
+- Student registration and login.
+- Access assigned courses and learning materials.
+- Attempt dynamically generated quizzes.
+- Receive questions based on current performance.
+- Track quiz results and learning progress.
 
-## ⭐ LATEST UPDATES (Just Completed!)
+👨‍🏫 Teacher Module
 
-### ✅ Real AI Integration Fixed
-- **Before:** Questions were random/dummy data
-- **After:** Real grok  API integration
-- Questions are now **actually generated based on your topics!**
+- Create and manage courses.
+- Upload learning materials.
+- Create and manage assessments.
+- Monitor student performance.
 
+👨‍💼 Admin Module
 
+- Manage users and system data.
+- Monitor courses and assessments.
+- View overall system analytics.
 
+🤖 AI-Based Features
 
+- AI-assisted question generation.
+- Generation of questions from uploaded educational content.
+- Adaptive question difficulty.
+- Performance-based learning flow.
 
-### ✅ Robust Error Handling
-- Detailed error messages
-- API connectivity checks
-- JSON parsing fallbacks
-- User-friendly alerts
+🔄 Adaptive Learning Workflow
 
----
+Learning Material
+       ↓
+Content Processing
+       ↓
+Groq API + LLM
+       ↓
+Quiz Question Generation
+       ↓
+Student Attempts Question
+       ↓
+Performance Evaluation
+       ↓
+Difficulty Adjustment
+       ↓
+Next Question
 
-## 🚀 Features
+🏗️ Technology Stack
 
-### For Teachers
-- 📚 **Class Management:** Create classes with alphanumeric codes (e.g., ABC123)
-- 📤 **File Upload:** PDF, DOC, TXT, images with drag-and-drop
-- 🤖 **AI Question Generation:**
-  - ✨ **Generate from text topics** (NEW!)
-  - ✨ **Generate from uploaded files**
-  - ✨ **Customizable:** 5-50 questions
-  - ✨ **Difficulty:** Easy/Medium/Hard/Mixed
-  - ✨ **Questions preview** (NEW!)
-- � Monitor student performance
-- 🔍 View detailed test insights
+Frontend
 
-### For Students
-- 🎓 **Class Joining:** Enter code to join teacher's class
-- 📝 **Adaptive Testing:** Difficulty adjusts based on performance
-- ⏱️ **30-second timer** per question
-- 📊 **Real-time stress tracking**
-- � **Performance analytics** with Recharts graphs
-- 🔄 Retake tests to improve scores
+- React
+- TypeScript
+- Tailwind CSS
+- Vite
+- Recharts
 
-### For Admins
-- 📊 Platform-wide analytics dashboard
-- 👥 User distribution insights
-- 📈 Performance trends and metrics
-- 🟢 Real-time system status monitoring
+Backend
 
-## 🛠️ Tech Stack
+- Node.js
+- Express.js
+- TypeScript
+- REST APIs
 
-**Backend**
-- Node.js + Express + TypeScript
-- Google Gemini AI (1.5 Flash)
-- Multer for file uploads
-- Adaptive difficulty algorithm
+Database
 
-**Frontend**
-- React 18 + TypeScript
-- Vite (dev & build)
-- TailwindCSS for styling
-- Recharts for data visualization
-- Zustand for state management
-- React Router for navigation
+- MongoDB
+- Mongoose
 
-## 📦 Installation
+«MongoDB is configured as a local database in this project; MongoDB Atlas is not required.»
 
-### Backend Setup
+AI
 
-```cmd
-cd C:\vibathon\backend
+- Groq API
+- Large Language Model (LLM) for AI-based question generation
+
+Authentication & Security
+
+- JWT (JSON Web Tokens)
+- bcrypt.js for password hashing
+
+🧩 System Architecture
+
+The system follows a client-server architecture:
+
+User
+ │
+ ▼
+React + TypeScript Frontend
+ │
+ ▼
+Express.js REST API
+ │
+ ├──────────────► MongoDB
+ │
+ └──────────────► Groq API
+                       │
+                       ▼
+                    LLM
+                       │
+                       ▼
+               Generated Questions
+
+🛠️ Installation and Setup
+
+1. Clone the Repository
+
+git clone <YOUR-GITHUB-REPOSITORY-URL>
+cd <PROJECT-FOLDER>
+
+2. Install Frontend Dependencies
+
+cd frontend
 npm install
-copy .env.example .env
-```
 
-Edit `.env` and add your Gemini API key:
-```
-GEMINI_API_KEY=your_actual_api_key_here
-```
+3. Install Backend Dependencies
 
-### Frontend Setup
-
-```cmd
-cd C:\vibathon\frontend
+cd ../backend
 npm install
-```
 
-## 🏃 Running Development
+4. Configure Environment Variables
 
-**Terminal 1 - Backend:**
-```cmd
-cd C:\vibathon\backend
-npm run dev
-```
-Backend will run on http://localhost:4000
+Create a ".env" file in the backend directory and add the required configuration.
 
-**Terminal 2 - Frontend:**
-```cmd
-cd C:\vibathon\frontend
-npm run dev
-```
-Frontend will run on http://localhost:5173
+Example:
 
-## 🚢 Production Deployment
-
-### Build Frontend
-```cmd
-cd C:\vibathon\frontend
-npm run build
-```
-This creates a `dist` folder with optimized static files.
-
-### Build Backend
-```cmd
-cd C:\vibathon\backend
-npm run build
-```
-This creates a `dist` folder with compiled TypeScript.
-
-### Run Production Server
-```cmd
-cd C:\vibathon\backend
-set NODE_ENV=production
-npm start
-```
-
-### Deploy Options
-
-**Option 1: Vercel (Frontend) + Railway/Render (Backend)**
-1. Push code to GitHub
-2. Deploy frontend to Vercel (auto-detects Vite)
-3. Deploy backend to Railway or Render
-4. Update `frontend/src/services/api.ts` with production backend URL
-
-**Option 2: Docker**
-```dockerfile
-# Backend Dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --production
-COPY . .
-RUN npm run build
-EXPOSE 4000
-CMD ["npm", "start"]
-```
-
-**Option 3: Traditional VPS**
-- Use PM2 for process management
-- Nginx as reverse proxy
-- SSL with Let's Encrypt
-
-### Environment Variables for Production
-
-Backend `.env`:
-```
 PORT=4000
-GEMINI_API_KEY=your_production_key
-NODE_ENV=production
-CORS_ORIGIN=https://your-frontend-domain.com
-```
+DB_URL=mongodb://127.0.0.1:27017/ailearning
+GROQ_API_KEY=your_groq_api_key
+JWT_SECRET=your_jwt_secret
 
-Frontend: Update `src/services/api.ts`:
-```typescript
-const api = axios.create({ 
-  baseURL: process.env.VITE_API_URL || 'https://your-backend-api.com/api'
-});
-```
+Do not upload API keys or passwords to GitHub.
 
-## 🔐 Security Checklist
+5. Start MongoDB
 
-- ✅ Gemini API key stored in `.env` (never committed)
-- ✅ Backend proxies all AI requests (frontend never calls Gemini directly)
-- ✅ CORS configured for production domains
-- ⚠️ Implement real JWT authentication (currently using dummy tokens)
-- ⚠️ Add rate limiting for API endpoints
-- ⚠️ Validate file uploads (type, size, scan for malware)
-- ⚠️ Add persistent database (replace in-memory storage)
+Make sure the locally installed MongoDB service is running.
 
-## 📁 Project Structure
+The project uses the database:
 
-```
-vibathon/
-├── backend/
-│   ├── src/
-│   │   ├── index.ts              # Express server
-│   │   ├── adaptiveLogic.ts      # Difficulty algorithm
-│   │   ├── routes/
-│   │   │   ├── auth.ts           # Login endpoints
-│   │   │   ├── materials.ts      # Upload & list
-│   │   │   ├── tests.ts          # Test generation & attempts
-│   │   │   └── admin.ts          # Analytics
-│   │   └── services/
-│   │       └── geminiClient.ts   # AI proxy
-│   ├── uploads/                  # Uploaded files
-│   └── package.json
+ailearning
+
+6. Start the Backend
+
+cd backend
+npm run dev
+
+The backend API runs on:
+
+http://localhost:4000
+
+7. Start the Frontend
+
+Open another terminal:
+
+cd frontend
+npm run dev
+
+Vite will provide the local development URL, usually:
+
+http://localhost:5173
+
+📊 Adaptive Question Mechanism
+
+The system evaluates the student's submitted answer and determines whether it is correct.
+
+The performance information is then used to influence the difficulty of the next question.
+
+A simplified flow is:
+
+Correct Answer
+      ↓
+Increase / Maintain Difficulty
+      ↓
+Next Question
+
+Incorrect Answer
+      ↓
+Reduce / Maintain Difficulty
+      ↓
+Next Question
+
+The project uses Bloom's Taxonomy and performance-based rules as part of the adaptive learning approach.
+
+🔐 Security
+
+The application includes:
+
+- Password hashing using bcrypt.
+- JWT-based authentication.
+- Role-based access for Student, Teacher, and Admin.
+- Environment variables for sensitive configuration.
+- API-based communication between frontend and backend.
+
+📁 Main Project Structure
+
+Agentic-Adaptive-Learning-System/
+│
 ├── frontend/
 │   ├── src/
-│   │   ├── pages/
-│   │   │   ├── Login.tsx         # Login page
-│   │   │   ├── Teacher.tsx       # Teacher dashboard
-│   │   │   ├── Student.tsx       # Student portal + test UI
-│   │   │   └── Admin.tsx         # Admin analytics
+│   ├── components/
+│   ├── pages/
+│   └── ...
+│
+├── backend/
+│   ├── src/
+│   │   ├── routes/
 │   │   ├── services/
-│   │   │   └── api.ts            # Axios client
-│   │   ├── store/
-│   │   │   └── useStore.ts       # Zustand store
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   └── package.json
-└── README.md
-```
+│   │   └── ...
+│   └── ...
+│
+├── README.md
+└── .gitignore
 
-## 🎯 API Endpoints
+🚀 Future Enhancements
 
-### Authentication
-- `POST /api/auth/login` - Login with role
+- More advanced learner-performance prediction.
+- Improved adaptive learning algorithms.
+- More detailed learning analytics.
+- Multilingual educational content.
+- AI-based learning assistance.
+- Improved emotional-state and engagement analysis.
+- Mobile application support.
 
-### Materials (Teacher)
-- `POST /api/materials/upload` - Upload file
-- `GET /api/materials` - List materials
+👥 Project Team
 
-### Tests
-- `POST /api/tests/generate` - Generate questions (calls Gemini)
-- `GET /api/tests` - List all tests
-- `POST /api/tests/start` - Start test attempt
-- `POST /api/tests/answer` - Submit answer (adaptive logic)
-- `GET /api/tests/insights/:attemptId` - Get performance data
+Project: Agentic Adaptive Learning System
 
-### Admin
-- `GET /api/admin/analytics` - Platform analytics
+Developed as an academic project by a team of students.
 
-## 🧠 Adaptive Logic
+📚 Technologies and References
 
-The system adjusts question difficulty based on:
-- **Correctness** of previous answer
-- **Simulated stress level** (0-1 scale)
-
-Algorithm (in `backend/src/adaptiveLogic.ts`):
-- If correct answer + low stress → increase difficulty
-- If incorrect answer + high stress → decrease difficulty
-- Otherwise → maintain current difficulty
-
-## 🐛 Troubleshooting
-
-**Backend won't start:**
-- Check if port 4000 is available
-- Verify `.env` file exists with GEMINI_API_KEY
-
-**Frontend build errors:**
-- Run `npm install` again
-- Clear node_modules and reinstall
-
-**Gemini API errors:**
-- Verify API key is valid
-- Check API quota/limits
-- Review endpoint URL in `geminiClient.ts`
-
-## 📝 Next Steps for Production
-
-1. **Database Integration**
-   - Replace in-memory stores with MongoDB/PostgreSQL
-   - Implement user authentication with bcrypt + JWT
-   
-2. **File Processing**
-   - Add PDF text extraction
-   - OCR for image-based materials
-   - Send extracted content to Gemini
-
-3. **Enhanced Security**
-   - Rate limiting (express-rate-limit)
-   - Input validation (Joi/Zod)
-   - File upload scanning
-
-4. **Monitoring**
-   - Error tracking (Sentry)
-   - Analytics (PostHog, Mixpanel)
-   - Logging (Winston)
-
-## 📄 License
-
-MIT
-
-## 🤝 Support
-
-For issues or questions, please open a GitHub issue.
+- React Documentation
+- Node.js Documentation
+- Express.js Documentation
+- MongoDB Documentation
+- Mongoose Documentation
+- TypeScript Documentation
+- Tailwind CSS Documentation
+- Groq API Documentation
+- Vite Documentation
+- JWT Documentation
+- Bloom's Taxonomy
 
 ---
 
-Built with ❤️ using React, TypeScript, Node.js, and Google Gemini AI
-"# ailearn" 
+📄 License
+
+This project was developed for academic and educational purposes.
